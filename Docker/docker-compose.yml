@@ -1,0 +1,32 @@
+services:
+   web:
+      image: nginx
+      #container_name: nginx
+      ports:
+       - "8081-8090:80"
+   backend:
+      build: ./webapp
+      container_name: javaweb-app
+      ports:
+       - "8881:8888"
+      depends_on:
+       - mysql
+      networks:
+       - mybanknetwork
+
+   mysql:
+      image: mysql:8
+      container_name: mysql-db
+      environment:
+         MYSQL_ROOT_PASSWORD: root
+         MYSQL_DATABASE: testdb
+      volumes:
+       - sqlvolume:/var/lib/mysql
+      networks:
+       - mybanknetwork
+
+volumes:
+  sqlvolume:
+
+networks:
+  mybanknetwork:
