@@ -6,13 +6,16 @@ services:
        - "8081-8090:80"
    backend:
       build: ./webapp
-      container_name: javaweb-app
+      #container_name: javaweb-app
       ports:
-       - "8881:8888"
+       - "8000-8010:8888"
       depends_on:
        - mysql
       networks:
        - mybanknetwork
+      volumes:
+       - devopssql:/tmp
+
 
    mysql:
       image: mysql:8
@@ -27,6 +30,6 @@ services:
 
 volumes:
   sqlvolume:
-
+  devopssql:
 networks:
   mybanknetwork:
